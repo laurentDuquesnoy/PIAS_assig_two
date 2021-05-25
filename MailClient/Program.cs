@@ -76,6 +76,8 @@ namespace MailClient
                 //Console.WriteLine(MailService.SendMail(_user, m).Status);
                 //sendgrid api not working, used outlook account instead to test
                 MailService.SendMailSmtpOutlook(_user, m);
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Mail has been sent!");
             }
             catch (Exception ex)
             {

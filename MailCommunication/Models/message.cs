@@ -3,6 +3,8 @@
 namespace MailCommunication.Models
 {
     public class message
+    
+    
     {
         public string To { get; set; }
         public string From { get; set; }
