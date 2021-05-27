@@ -18,7 +18,10 @@ namespace MailClient
 
         private static void Main(string[] args)
         {
-            _user = MailService.GetUserSettings();
+            //if sendgrid works, this one will too 
+            //_user = MailService.GetUserSettings();
+
+            _user = MailService.getAlternateSettings();
             if (!string.IsNullOrEmpty(_user.Username))
             {
                 PrintUser();
@@ -55,7 +58,9 @@ namespace MailClient
                 case "1":
                     SendMail();
                     break;
-                
+                case "2":
+                    SendMailOutlook();
+                    break;
                 default:
                     PrintMenu();
                     break;
@@ -66,9 +71,9 @@ namespace MailClient
         {
             message m = new message()
             {
-                Content = "yeet wassup",
+                Content = "Goedenavond Laurent",
                 From = _user.MailAddress,
-                Subject = "test",
+                Subject = "Goedenavond",
                 To = "laurent.duquesnoy@student.vives.be"
             };
             try
@@ -84,5 +89,13 @@ namespace MailClient
                 Console.WriteLine(ex.InnerException);
             }
         }
+
+        private static void SendMailOutlook()
+        {
+            List<string> attachments = new List<string>();
+            
+        }
+        
+        
     }
 }

@@ -14,6 +14,8 @@ using MailKit.Net.Smtp;
 using MimeKit;
 
 namespace MailCommunication
+
+
 {
     public class MailService
     { 
@@ -31,6 +33,20 @@ namespace MailCommunication
             return value;
         }
 
+        public static ExtendedUser getAlternateSettings()
+        {
+            var result = _appSettingsService.GetConfigurationSection<ExtendedUser>("AlternateCreds");
+            ExtendedUser user = new ExtendedUser()
+            {
+                Username = result.QueryResult.Username,
+                MailAddress = result.QueryResult.MailAddress,
+                PassWord = result.QueryResult.PassWord,
+                SmtpHost = result.QueryResult.SmtpHost,
+                UseSSl = result.QueryResult.UseSSl
+            };
+            
+            return user;
+        }
         public static async Task SendMail(User user , message message)
         {
             var apiKey = user.APIKey;
@@ -67,18 +83,22 @@ namespace MailCommunication
             }
         }
         
-        public static void SendMailSmtpOutlook(User user, message msg)
+        public static void SendMailSmtpOutlook(ExtendedUser user, message msg)
         {
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("laurentdev89@outlook.be"));
             message.To.Add(new MailboxAddress(msg.To));
             message.Subject = msg.Subject;
 
-            message.Body = new TextPart("plain")
-            {
-                Text = msg.Content
-            };
+            var builder = new BodyBuilder();
+            builder.TextBody = @"
+                TestBody
+            ";
 
+            builder.Attachments.Add(@"C:\VivesTestFiles\attachment.txt");
+
+            message.Body = builder.ToMessageBody();
+                
             using (var client = new SmtpClient())
             {
                 client.Connect("smtp-mail.outlook.com", 587, false);
@@ -87,7 +107,12 @@ namespace MailCommunication
                 client.Disconnect(true);
             }
         }
-        
-        
+
+        //method overloading: redefining a function with more or less parameters, a common form of polymorphism
+        public static void SendMailSmtpOutlook(ExtendedUser user, message msg, List<string> attachments)
+        {
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress(user.MailAddress));
+        }
     }
 }
