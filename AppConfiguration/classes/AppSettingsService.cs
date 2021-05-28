@@ -65,6 +65,7 @@ namespace AppConfiguration
 
             // https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/ref#code-try-0
             AddJSONSettingsFileToBuilder(ref configBuilder, "appconfig.json");
+            AddJSONSettingsFileToBuilder(ref configBuilder, "Recipients.json");
 
             //bouw de applicatie configuratie root
             _configRoot = configBuilder.Build();

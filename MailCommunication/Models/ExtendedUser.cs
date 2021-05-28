@@ -5,7 +5,5 @@
         public string PassWord { get; set; }
         public string SmtpHost { get; set; }
         public bool UseSSl { get; set; }
-        
-        
     }
 }

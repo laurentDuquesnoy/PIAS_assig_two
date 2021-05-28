@@ -4,7 +4,6 @@ C:\Users\laure\Documents\Documents\vives\PIAS\assignments\three\MailClient\MailC
 C:\Users\laure\Documents\Documents\vives\PIAS\assignments\three\MailClient\MailCommunication\bin\Debug\net5.0\MailCommunication.pdb
 C:\Users\laure\Documents\Documents\vives\PIAS\assignments\three\MailClient\MailCommunication\bin\Debug\net5.0\AppConfiguration.dll
 C:\Users\laure\Documents\Documents\vives\PIAS\assignments\three\MailClient\MailCommunication\bin\Debug\net5.0\AppConfiguration.pdb
-C:\Users\laure\Documents\Documents\vives\PIAS\assignments\three\MailClient\MailCommunication\obj\Debug\net5.0\MailCommunication.csprojAssemblyReference.cache
 C:\Users\laure\Documents\Documents\vives\PIAS\assignments\three\MailClient\MailCommunication\obj\Debug\net5.0\MailCommunication.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\laure\Documents\Documents\vives\PIAS\assignments\three\MailClient\MailCommunication\obj\Debug\net5.0\MailCommunication.AssemblyInfoInputs.cache
 C:\Users\laure\Documents\Documents\vives\PIAS\assignments\three\MailClient\MailCommunication\obj\Debug\net5.0\MailCommunication.AssemblyInfo.cs
@@ -13,3 +12,4 @@ C:\Users\laure\Documents\Documents\vives\PIAS\assignments\three\MailClient\MailC
 C:\Users\laure\Documents\Documents\vives\PIAS\assignments\three\MailClient\MailCommunication\obj\Debug\net5.0\MailCommunication.dll
 C:\Users\laure\Documents\Documents\vives\PIAS\assignments\three\MailClient\MailCommunication\obj\Debug\net5.0\ref\MailCommunication.dll
 C:\Users\laure\Documents\Documents\vives\PIAS\assignments\three\MailClient\MailCommunication\obj\Debug\net5.0\MailCommunication.pdb
+C:\Users\laure\Documents\Documents\vives\PIAS\assignments\three\MailClient\MailCommunication\obj\Debug\net5.0\MailCommunication.csproj.AssemblyReference.cache

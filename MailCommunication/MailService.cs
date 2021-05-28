@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using SendGrid;
 //using System.Net.Mail;
@@ -12,6 +13,7 @@ using SendGrid.Helpers.Mail;
 using MailKit;
 using MailKit.Net.Smtp;
 using MimeKit;
+using MimeKit.Text;
 
 namespace MailCommunication
 
@@ -86,7 +88,7 @@ namespace MailCommunication
         public static void SendMailSmtpOutlook(ExtendedUser user, message msg)
         {
             var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("laurentdev89@outlook.be"));
+            message.From.Add(new MailboxAddress(user.MailAddress));
             message.To.Add(new MailboxAddress(msg.To));
             message.Subject = msg.Subject;
 
@@ -95,14 +97,12 @@ namespace MailCommunication
                 TestBody
             ";
 
-            builder.Attachments.Add(@"C:\VivesTestFiles\attachment.txt");
-
             message.Body = builder.ToMessageBody();
                 
             using (var client = new SmtpClient())
             {
-                client.Connect("smtp-mail.outlook.com", 587, false);
-                client.Authenticate("laurentdev89@outlook.be", "laurentDev");
+                client.Connect(user.SmtpHost , 587, user.UseSSl);
+                client.Authenticate(user.MailAddress, user.PassWord);
                 client.Send(message);
                 client.Disconnect(true);
             }
@@ -113,6 +113,65 @@ namespace MailCommunication
         {
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress(user.MailAddress));
+            message.To.Add(new MailboxAddress(msg.To));
+            message.Subject = msg.Subject;
+
+            var builder = new BodyBuilder();
+            builder.HtmlBody = "<h1>hey</h1>";
+
+            foreach (string s in attachments)
+            {
+                builder.Attachments.Add(s);
+            }
+
+            message.Body = builder.ToMessageBody();
+
+            using (var client = new SmtpClient())
+            {
+                client.Connect(user.SmtpHost , 587, user.UseSSl);
+                client.Authenticate(user.MailAddress, user.PassWord);
+                client.Send(message);
+                client.Disconnect(true);
+            }
+
+        }
+
+        public static void SendSubscriptionConfirmation(ExtendedUser user)
+        {
+            var recipients = _appSettingsService.GetConfigurationSection<Recipients>("Recipients");
+            List<MimeMessage> messages = new List<MimeMessage>();
+            
+            string path = @"c:\VivesTestFiles\content.html";
+            
+            foreach (Recipient r in recipients.QueryResult.users)
+            {
+                var message = new MimeMessage();
+                message.From.Add(new MailboxAddress(user.MailAddress));
+                message.To.Add(new MailboxAddress(r.email));
+                message.Subject = "Bevestiging";
+
+                string htmlContent = File.ReadAllText(path);
+                htmlContent = String.Format(htmlContent, r.name, r.email);
+
+                var builder = new BodyBuilder();
+                builder.HtmlBody = htmlContent;
+
+                message.Body = builder.ToMessageBody();
+
+                messages.Add(message);
+
+            }
+
+            using (SmtpClient client = new SmtpClient())
+            {
+                client.Connect(user.SmtpHost, 587, user.UseSSl);
+                client.Authenticate(user.MailAddress, user.PassWord);
+                foreach (MimeMessage m in messages)
+                {
+                    client.Send(m);
+                }
+                client.Disconnect(true);
+            }
         }
     }
 }

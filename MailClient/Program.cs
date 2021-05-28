@@ -14,7 +14,7 @@ namespace MailClient
 {
     class Program
     {
-        private static User _user { get; set; }
+        private static ExtendedUser _user { get; set; }
 
         private static void Main(string[] args)
         {
@@ -53,13 +53,18 @@ namespace MailClient
         {
             Console.WriteLine("Choose an option:");
             Console.WriteLine("1) Send a mail from" + _user.MailAddress + " to laurent");
+            Console.WriteLine("2) Send a mail from " + _user.MailAddress + " to laurent with attachments");
+            Console.WriteLine("3) Send a subscription mail to subscribers");
             switch (Console.ReadLine())
             {
                 case "1":
                     SendMail();
                     break;
                 case "2":
-                    SendMailOutlook();
+                    SendMailWithFiles();
+                    break;
+                case "3":
+                    SendSubscriptionConfirmation();
                     break;
                 default:
                     PrintMenu();
@@ -82,7 +87,7 @@ namespace MailClient
                 //sendgrid api not working, used outlook account instead to test
                 MailService.SendMailSmtpOutlook(_user, m);
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("Mail has been sent!");
+                Console.WriteLine("Mail has been sent.");
             }
             catch (Exception ex)
             {
@@ -90,12 +95,44 @@ namespace MailClient
             }
         }
 
-        private static void SendMailOutlook()
+        private static void SendMailWithFiles()
         {
             List<string> attachments = new List<string>();
             
+            attachments.Add(@"C:\VivesTestFiles\attachment.txt");
+            attachments.Add(@"C:\VivesTestFiles\attachment2.txt");
+            
+            message m = new message()
+            {
+                Content = "Hello! here are your attachments",
+                From = _user.MailAddress,
+                Subject = "Attachments",
+                To = "laurentduquesnoy5@gmail.com"
+            };
+            try
+            {
+                MailService.SendMailSmtpOutlook(_user, m, attachments);
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Mail with attachments has been sent.");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.InnerException);
+            }
         }
-        
-        
+
+        private static void SendSubscriptionConfirmation()
+        {
+            try
+            {
+                MailService.SendSubscriptionConfirmation(_user);
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Subscription mails have been sent");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
     }
 }

@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "ut0GEGRx1Y8BXlYGAwE4bsqCfNR61qFGRRXEkyo/eo6XnyyklA2UG4Krav8QZOgOvRVwBdC8hd63PUgHeMSGAg==",
+  "dgSpecHash": "L5PIuLLQ05r2Q+WY4YUUzcbxhe3ExfBT9v6uLd2GUXFBlV8KEU6ee4mM2Op3ps1F7xw1Qu3SqJZBzbS8YZFqvw==",
   "success": true,
   "projectFilePath": "C:\\Users\\laure\\Documents\\Documents\\vives\\PIAS\\assignments\\three\\MailClient\\SerializingUtils\\SerializingUtils.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\laure\\.nuget\\packages\\microsoft.netcore.app.ref\\5.0.0\\microsoft.netcore.app.ref.5.0.0.nupkg.sha512",
+    "C:\\Users\\laure\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\5.0.0\\microsoft.windowsdesktop.app.ref.5.0.0.nupkg.sha512",
+    "C:\\Users\\laure\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\5.0.0\\microsoft.aspnetcore.app.ref.5.0.0.nupkg.sha512"
+  ],
   "logs": []
 }
